@@ -14,7 +14,7 @@ pipeline {
                     sh '''
                         curl -u $TOMCAT_USER:$TOMCAT_PASS \
                           --upload-file target/*.war \
-                          "http://10.0.0.58:8666/manager/text/deploy?path=/app&update=true"
+                          "http://10.0.0.58:8080/manager/text/deploy?path=/app&update=true"
                     '''
                 }
             }
