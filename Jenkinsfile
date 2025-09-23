@@ -10,15 +10,13 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                deploy adapters: [
-                        tomcat9(
-                            credentialsId: 'tomcat-creds',
-                            url: 'http://10.0.0.1:8666/'
-                        )
-                    ],
-                    war: 'target/*.war',
-                    contextPath: 'app'
-            }
+                withCredentials([usernamePassword(credentialsId: 'tomcat-creds', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASS')]) {
+                    sh '''
+                        curl -u $TOMCAT_USER:$TOMCAT_PASS \
+                          --upload-file target/*.war \
+                          "http://10.0.0.58:8666/manager/text/deploy?path=/app&update=true"
+                    '''
+                }
         }
     }
 }
