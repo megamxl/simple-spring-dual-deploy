@@ -17,6 +17,7 @@ pipeline {
                           "http://10.0.0.58:8666/manager/text/deploy?path=/app&update=true"
                     '''
                 }
+            }
         }
     }
 }
