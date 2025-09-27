@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('k3s-creds')  // Jenkins credential ID
+        NAMESPACE = "dev"
+    }
+
+    stages {
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh """
+                  kubectl --kubeconfig=$KUBECONFIG apply -f ./k8s
+                """
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo "Deployment failed ❌"
+        }
+        success {
+            echo "Deployment succeeded ✅"
+        }
+    }
+}
