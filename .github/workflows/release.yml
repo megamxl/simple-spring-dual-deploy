@@ -2,8 +2,7 @@ name: Build and Release WAR & Docker
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   build-and-release:
