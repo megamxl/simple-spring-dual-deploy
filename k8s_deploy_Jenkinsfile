@@ -1,18 +1,17 @@
 pipeline {
     agent any
 
-    environment {
-        KUBECONFIG = credentials('k3s--creds')  // Jenkins credential ID
-    }
-
     stages {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh """
-                    export KUBECONFIG=$KUBECONFIG
-                    kubectl apply -f ./k8s
-                """
+                withCredentials([file(credentialsId: k3s--creds', variable: 'KUBECONFIG')]) {
+                    sh '''
+                      echo "Deploying using kubeconfig at $KUBECONFIG"
+                      export KUBECONFIG=$KUBECONFIG
+                      kubectl apply -f ./k8s
+                    '''
+                }
             }
         }
     }
