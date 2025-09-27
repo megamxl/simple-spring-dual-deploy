@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = credentials('k3s-creds')  // Jenkins credential ID
-        NAMESPACE = "dev"
+        KUBECONFIG = credentials('k3s--creds')  // Jenkins credential ID
     }
 
     stages {
