@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     stages {
-
         stage('Deploy to Kubernetes') {
             steps {
-                withCredentials([file(credentialsId: k3s--creds', variable: 'KUBECONFIG')]) {
+                withCredentials([file(credentialsId: 'k3s--creds', variable: 'KUBECONFIG')]) {
                     sh '''
                       echo "Deploying using kubeconfig at $KUBECONFIG"
                       export KUBECONFIG=$KUBECONFIG
