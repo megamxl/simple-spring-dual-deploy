@@ -16,6 +16,9 @@ spec:
       containers:
         - name: spring-webapp
           image: ghcr.io/megamxl/simple-spring-dual-deploy:latest
+          envFrom:
+            - secretRef:
+                name: env-secrets
           ports:
             - containerPort: 8080
 ---
@@ -45,8 +48,11 @@ spec:
     kind: ClusterSecretStore
   target:
     name: env-secret
+    template:
+      type: kubernetes.io/tls
+      data:
+        ENV_NAME: {{ .name }}
   data:
-    - secretKey: foobar
+    - secretKey: name
       remoteRef:
-        key: secret/env
-        property: k8s
+        key: /global/name
