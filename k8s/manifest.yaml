@@ -18,7 +18,7 @@ spec:
           image: ghcr.io/megamxl/simple-spring-dual-deploy:latest
           envFrom:
             - secretRef:
-                name: env-secrets
+                name: env-secret
           ports:
             - containerPort: 8080
 ---
