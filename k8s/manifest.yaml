@@ -41,6 +41,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: vault-example
+  namespace: dev
 spec:
   refreshInterval: "15s"
   secretStoreRef:
@@ -49,10 +50,10 @@ spec:
   target:
     name: env-secret
     template:
-      type: kubernetes.io/tls
       data:
         ENV_NAME: "{{ .name }}"
   data:
     - secretKey: name
       remoteRef:
-        key: /global/name
+        key: global
+        property: name
