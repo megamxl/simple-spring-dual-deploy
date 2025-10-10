@@ -8,6 +8,23 @@ pipeline {
             }
         }
 
+         stage('Update Config') {
+             steps {
+                sh '''
+                    curl -v   -X POST http://10.0.0.59:8090/create   -H "Content-Type: application/json"   -d '{
+                        "file_path": "/etc/tomcat10/Catalina/localhost/app.xml",
+                        "store_name": "vault",
+                        "secret_wrapper": {
+                          "content": "<Context>\n   <Environment name=\"env.name\" value=\"{{ .name }}\" type=\"java.lang.String\" override=\"false\" />\n</Context> \n",
+                          "secret_references": {
+                            "name": "global/name"
+                          }
+                        }
+                      }'
+
+                '''
+             }
+        }
         stage('Deploy to Tomcat') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'tomcat-creds', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASS')]) {
