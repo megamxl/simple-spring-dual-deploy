@@ -9,6 +9,7 @@ pipeline {
                       echo "Deploying using kubeconfig at $KUBECONFIG"
                       export KUBECONFIG=$KUBECONFIG
                       kubectl apply -f ./k8s
+                      kubectl rollout restart deployment spring-webapp -n dev
                     '''
                 }
             }
