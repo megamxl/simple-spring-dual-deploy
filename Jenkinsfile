@@ -15,7 +15,7 @@ pipeline {
                         "file_path": "/etc/tomcat10/Catalina/localhost/app.xml",
                         "store_name": "vault",
                         "secret_wrapper": {
-                          "content": "<Context>\n   <Environment name=\"env.name\" value=\"{{ .name }}\" type=\"java.lang.String\" override=\"false\" />\n</Context> \n",
+                          "content": "<Context>\\n   <Environment name=\"env.name\" value=\"{{ .name }}\" type=\"java.lang.String\" override=\"false\" />\\n</Context> \\n",
                           "secret_references": {
                             "name": "global/name"
                           }
