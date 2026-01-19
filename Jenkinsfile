@@ -26,7 +26,7 @@ pipeline {
                     }
                     """
 
-                    sh """curl -v -X POST http://10.0.0.59:8090/create \
+                    sh """curl -v -X POST http://10.0.0.59:8090/secret \
                       -H "Content-Type: application/json" \
                       -d '${jsonPayload}'"""
                 }
