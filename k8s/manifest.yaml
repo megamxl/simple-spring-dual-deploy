@@ -30,13 +30,14 @@ metadata:
   name: spring-webapp-service
   namespace: dev
 spec:
+  type: NodePort
   selector:
     app: spring-webapp
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
+      port: 80          # Cluster Internal Port
+      targetPort: 8080  # App Port
+      nodePort: 32382   # External Host Port
 
 ---
 apiVersion: external-secrets.io/v1
